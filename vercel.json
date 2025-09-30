@@ -1,45 +1,75 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "Build/**", "use": "@vercel/static" },
-    { "src": "index.html", "use": "@vercel/static" }
+  "rewrites": [
+    {
+      "source": "/Build/:file.framework.js",
+      "has": [{ "type": "header", "key": "Accept-Encoding", "value": "(?i)(^|.*,\\s*)br(\\s*,.*|$)" }],
+      "destination": "/Build/:file.framework.js.br"
+    },
+    {
+      "source": "/Build/:file.data",
+      "has": [{ "type": "header", "key": "Accept-Encoding", "value": "(?i)(^|.*,\\s*)br(\\s*,.*|$)" }],
+      "destination": "/Build/:file.data.br"
+    },
+    {
+      "source": "/Build/:file.wasm",
+      "has": [{ "type": "header", "key": "Accept-Encoding", "value": "(?i)(^|.*,\\s*)br(\\s*,.*|$)" }],
+      "destination": "/Build/:file.wasm.br"
+    }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "/Build/(.*)\\.wasm\\.br",
-      "headers": {
-        "Content-Encoding": "br",
-        "Content-Type": "application/wasm",
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      "source": "/Build/:file.loader.js",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+
+    {
+      "source": "/Build/:file.framework.js.br",
+      "headers": [
+        { "key": "Content-Encoding", "value": "br" },
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
     },
     {
-      "src": "/Build/(.*)\\.js\\.br",
-      "headers": {
-        "Content-Encoding": "br",
-        "Content-Type": "application/javascript",
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      "source": "/Build/:file.data.br",
+      "headers": [
+        { "key": "Content-Encoding", "value": "br" },
+        { "key": "Content-Type", "value": "application/octet-stream" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
     },
     {
-      "src": "/Build/(.*)\\.data\\.br",
-      "headers": {
-        "Content-Encoding": "br",
-        "Content-Type": "application/octet-stream",
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      "source": "/Build/:file.wasm.br",
+      "headers": [
+        { "key": "Content-Encoding", "value": "br" },
+        { "key": "Content-Type", "value": "application/wasm" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+
+    {
+      "source": "/Build/:file.framework.js",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
     },
     {
-      "src": "/Build/(.*)\\.symbols\\.json\\.br",
-      "headers": {
-        "Content-Encoding": "br",
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      "source": "/Build/:file.data",
+      "headers": [
+        { "key": "Content-Type", "value": "application/octet-stream" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/Build/:file.wasm",
+      "headers": [
+        { "key": "Content-Type", "value": "application/wasm" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
     }
   ]
 }
