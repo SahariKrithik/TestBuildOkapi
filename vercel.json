@@ -6,33 +6,31 @@
   ],
   "routes": [
     {
-      "src": "/Build/(.*)\\.br",
+      "src": "/Build/(.*)\\.wasm.br",
       "headers": {
         "Content-Encoding": "br",
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "dest": "/Build/$1"
-    },
-    {
-      "src": "/Build/(.*)\\.wasm",
-      "headers": {
         "Content-Type": "application/wasm",
         "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      },
+      "dest": "/Build/$1.wasm"
     },
     {
-      "src": "/Build/(.*)\\.data",
+      "src": "/Build/(.*)\\.js.br",
       "headers": {
-        "Content-Type": "application/octet-stream",
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/Build/(.*)\\.js",
-      "headers": {
+        "Content-Encoding": "br",
         "Content-Type": "application/javascript",
         "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      },
+      "dest": "/Build/$1.js"
+    },
+    {
+      "src": "/Build/(.*)\\.data.br",
+      "headers": {
+        "Content-Encoding": "br",
+        "Content-Type": "application/octet-stream",
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/Build/$1.data"
     },
     {
       "src": "/(.*)",
