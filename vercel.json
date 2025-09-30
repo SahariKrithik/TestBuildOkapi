@@ -2,17 +2,14 @@
   "rewrites": [
     {
       "source": "/Build/:file.framework.js",
-      "has": [{ "type": "header", "key": "Accept-Encoding", "value": "(?i)(^|.*,\\s*)br(\\s*,.*|$)" }],
       "destination": "/Build/:file.framework.js.br"
     },
     {
       "source": "/Build/:file.data",
-      "has": [{ "type": "header", "key": "Accept-Encoding", "value": "(?i)(^|.*,\\s*)br(\\s*,.*|$)" }],
       "destination": "/Build/:file.data.br"
     },
     {
       "source": "/Build/:file.wasm",
-      "has": [{ "type": "header", "key": "Accept-Encoding", "value": "(?i)(^|.*,\\s*)br(\\s*,.*|$)" }],
       "destination": "/Build/:file.wasm.br"
     }
   ],
@@ -20,11 +17,9 @@
     {
       "source": "/Build/:file.loader.js",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" }
       ]
     },
-
     {
       "source": "/Build/:file.framework.js.br",
       "headers": [
@@ -43,25 +38,6 @@
       "source": "/Build/:file.wasm.br",
       "headers": [
         { "key": "Content-Encoding", "value": "br" },
-        { "key": "Content-Type", "value": "application/wasm" }
-      ]
-    },
-
-    {
-      "source": "/Build/:file.framework.js",
-      "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" }
-      ]
-    },
-    {
-      "source": "/Build/:file.data",
-      "headers": [
-        { "key": "Content-Type", "value": "application/octet-stream" }
-      ]
-    },
-    {
-      "source": "/Build/:file.wasm",
-      "headers": [
         { "key": "Content-Type", "value": "application/wasm" }
       ]
     }
